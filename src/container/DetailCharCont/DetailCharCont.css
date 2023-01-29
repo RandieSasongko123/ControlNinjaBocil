@@ -1,0 +1,15 @@
+.container-detail-char{
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    background-color: #1A1D27;
+}
+
+.container-detail-char .content-atas-char{
+    margin: 30px;
+}
+
+.container-detail-char .content-bawah-char{
+    margin: 30px;
+}
+

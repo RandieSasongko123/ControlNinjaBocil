@@ -1,0 +1,46 @@
+.container-recom{
+    width: 90%;
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #232734;
+    padding: 30px;
+    border-radius: 10px;
+    color: #9CA3AF;
+}
+
+.container-recom img {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 130px;
+}
+
+.sub-judul{
+    font-size: 36px;
+}
+
+.recom-skill, .recom-summon, .recom-tailed{
+    padding: 10px;
+    margin: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+    .container-recom img{
+        width: 75px;
+        height: 75px;
+    }
+    .container-recom h3{
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+
+    .container-recom img{
+        width: 50px;
+        height: 50px;
+    }
+    .container-recom h3{
+        font-size: 18px;
+    }
+}
