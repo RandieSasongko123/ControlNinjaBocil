@@ -1,41 +1,33 @@
 import React from "react";
-import { Component } from "react";
+import { Component, useState } from "react";
 import "./CharCont.css";
 import CardCharComp from "../../component/CharComp/CardCharComp";
 import axios from "axios";
 
 class CharCont extends Component {
+
   state = {
     post: [],
     formNinja: {
-      fotohero: "",
-      fotodetail: "",
-      background: "",
-      quality: "",
-      _id: "",
-      nama: "",
-      chakra: "",
-      point: "",
-      grade: "",
-      skill: [],
-      // skill: [
-      //   {
-      //     skill1: "",
-      //     skill2: "",
-      //     skill3: "",
-      //     skill4: "",
-      //     skill5: ""
-      //   }
-      // ],
-      summon: [],
-      tailed: [],
-      // skill: [{
-      //   skill1: '',
-      //   skill2: '',
-      //   skill3: '',
-      //   skill4: '',
-      //   skill5: ''
-      // }]
+      fotohero: '',
+      fotodetail: '',
+      background: '',
+      quality: '',
+      _id: '',
+      nama: '',
+      chakra: '',
+      point: '',
+      grade: '',
+      skill1: '',
+      skill2: '',
+      skill3: '',
+      skill4: '',
+      skill5: '',
+      summon1: '',
+      summon2: '',
+      summon3: '',
+      tailed1: '',
+      tailed2:''
     },
     isUpdate: false,
   };
@@ -51,14 +43,46 @@ class CharCont extends Component {
   };
 
   postDataToAPI = () => {
+
+    const { fotohero, fotodetail, background, nama, grade, point, chakra, quality, skill1, skill2, skill3, skill4, skill5, summon1, summon2, summon3, tailed1, tailed2 } = this.state.formNinja;
+
     axios
       .post(
         "https://publicapininjaheroes.vercel.app/ninja",
-        this.state.formNinja
+        {
+          fotohero,
+          fotodetail,
+          background,
+          nama,
+          grade,
+          point,
+          chakra,
+          quality,
+          skill: [skill1, skill2, skill3, skill4, skill5],
+          summon: [summon1, summon2, summon3],
+          tailed: [tailed1, tailed2]
+        }
       )
       .then(
         (res) => {
           console.log(res);
+          this.state.formNinja({
+            nama: '',
+            grade: '',
+            point: '',
+            chakra: '',
+            quality: '',
+            skill1: '',
+            skill2: '',
+            skill3: '',
+            skill4: '',
+            skill5: '',
+            summon1: '',
+            summon2: '',
+            summon3: '',
+            tailed1: '',
+            tailed2: ''
+          })
         },
         (err) => {
           console.log("error : ", err);
@@ -67,29 +91,47 @@ class CharCont extends Component {
   };
 
   putDataToAPI = () => {
+    const { fotohero, fotodetail, background, nama, grade, point, chakra, quality, skill1, skill2, skill3, skill4, skill5, summon1, summon2, summon3, tailed1, tailed2 } = this.state.formNinja;
+
     axios
       .put(
         `https://publicapininjaheroes.vercel.app/ninja/${this.state.formNinja._id}`,
-        this.state.formNinja
+        {
+          fotohero,
+          fotodetail,
+          background,
+          nama,
+          grade,
+          point,
+          chakra,
+          quality,
+          skill: [skill1, skill2, skill3, skill4, skill5],
+          summon: [summon1, summon2, summon3],
+          tailed: [tailed1, tailed2]
+        }
       )
       .then((res) => {
         console.log(res);
+
         this.getPostAPI();
         this.setState({
           isUpdate: false,
           formNinja: {
-            fotohero: "",
-            fotodetail: "",
-            background: "",
-            quality: "",
-            _id: "",
-            nama: "",
-            chakra: "",
-            point: "",
-            grade: "",
-            skill: [],
-            summon: [],
-            tailed: []
+            nama: '',
+            grade: '',
+            point: '',
+            chakra: '',
+            quality: '',
+            skill1: '',
+            skill2: '',
+            skill3: '',
+            skill4: '',
+            skill5: '',
+            summon1: '',
+            summon2: '',
+            summon3: '',
+            tailed1: '',
+            tailed2: ''
           },
         });
       });
@@ -123,7 +165,19 @@ class CharCont extends Component {
         chakra: "",
         point: "",
         grade: "",
-        skill: ["", "", "", "", ""],
+        skill: [
+          {skill1: ""},
+          {skill2: ""}
+        ],
+        // skill: [
+        //   {
+        //     skill1: "",
+        //     skill2: "",
+        //     skill3: "",
+        //     skill4: "",
+        //     skill5: ""
+        //   }
+        // ],
         summon: ["", "", ""],
         tailed: ["", ""]
       }
@@ -131,6 +185,7 @@ class CharCont extends Component {
   }
 
   handleFormChange = (event) => {
+    console.log(event)
     // Unik ID
     let timestamp = new Date().getTime();
 
@@ -163,14 +218,16 @@ class CharCont extends Component {
 
   componentDidMount() {
     this.getPostAPI();
-  }
+  };
 
   searchChanged = (event) => {
     this.setState({ nama: event.target.value });
   };
 
   render() {
+
     return (
+
       <div className="container-char">
         
         <div className="container-detail-char">
@@ -323,9 +380,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.skill[0]}
+                    value={this.state.formNinja.skill1}
                     type="text"
-                    name="skill[0]"
+                    name="skill1"
                     placeholder="Add Skill 1"
                     onChange={this.handleFormChange}
                   />
@@ -336,9 +393,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.skill[1]}
+                    value={this.state.formNinja.skill2}
                     type="text"
-                    name="skill1"
+                    name="skill2"
                     placeholder="Add Skill 2"
                     onChange={this.handleFormChange}
                   />
@@ -349,9 +406,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.skill[2]}
+                    value={this.state.formNinja.skill3}
                     type="text"
-                    name="skill[2]"
+                    name="skill3"
                     placeholder="Add Skill 3"
                     onChange={this.handleFormChange}
                   />
@@ -362,9 +419,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.skill[3]}
+                    value={this.state.formNinja.skill4}
                     type="text"
-                    name="skill[3]"
+                    name="skill4"
                     placeholder="Add Skill 4"
                     onChange={this.handleFormChange}
                   />
@@ -375,9 +432,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.skill[4]}
+                    value={this.state.formNinja.skill5}
                     type="text"
-                    name="skill[4]"
+                    name="skill5"
                     placeholder="Add Skill 5"
                     onChange={this.handleFormChange}
                   />
@@ -388,9 +445,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.summon[0]}
+                    value={this.state.formNinja.summon1}
                     type="text"
-                    name="summon[0]"
+                    name="summon1"
                     placeholder="Add Summon 1"
                     onChange={this.handleFormChange}
                   />
@@ -401,9 +458,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.summon[1]}
+                    value={this.state.formNinja.summon2}
                     type="text"
-                    name="summon[1]"
+                    name="summon2"
                     placeholder="Add Summon 2"
                     onChange={this.handleFormChange}
                   />
@@ -414,9 +471,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.summon[2]}
+                    value={this.state.formNinja.summon3}
                     type="text"
-                    name="summon[3]"
+                    name="summon3"
                     placeholder="Add Summon 3"
                     onChange={this.handleFormChange}
                   />
@@ -427,9 +484,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.tailed[0]}
+                    value={this.state.formNinja.tailed1}
                     type="text"
-                    name="tailed[0]"
+                    name="tailed1"
                     placeholder="Add Tailed 1"
                     onChange={this.handleFormChange}
                   />
@@ -440,9 +497,9 @@ class CharCont extends Component {
                 <td>:</td>
                 <td>
                   <input
-                    value={this.state.formNinja.tailed[1]}
+                    value={this.state.formNinja.tailed2}
                     type="text"
-                    name="tailed[1]"
+                    name="tailed2"
                     placeholder="Add Tailed 2"
                     onChange={this.handleFormChange}
                   />
@@ -462,7 +519,9 @@ class CharCont extends Component {
             </tbody>
           </table>
         </div>
+        
       </div>
+
     );
   }
 }
